@@ -19,14 +19,17 @@ public class PlayerMove : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        rb.velocity = dir * moveSpeed;
+        rb.velocity = dir * moveSpeed; //direction + vitesse de deplacement du perso
     }
 
     private void Update()
     {
+
+        //Vector2 dir = transform.up;
+        //Debug.Log("dir");
         if (c_shoot)
         {
-            GameObject bullet = ObjectPool.SharedInstance.GetBullet();
+            GameObject bullet = ObjectPool.SharedInstance.GetBullet(); // création des balles
             if (bullet != null)
             {
                 bullet.transform.position = new Vector3(transform.position.x, transform.position.y+0.5f, transform.position.z);
@@ -38,16 +41,16 @@ public class PlayerMove : MonoBehaviour
 
     public void Move(InputAction.CallbackContext context)
     {
-        dir = context.ReadValue<Vector2>();
+        dir = context.ReadValue<Vector2>(); // donne a dir la direction selon la touche pressé
     }
 
     public void Shoot(InputAction.CallbackContext context) 
     {
-        if(context.performed)
+        if(context.performed) // quand j'appuie sur la touche
         {
            c_shoot = true;
         }
-        if(context.canceled)
+        if(context.canceled) // quand je lache la touche
         {
             c_shoot= false;
         }

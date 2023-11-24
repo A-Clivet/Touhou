@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
-    [Header("Mes Munitions")]
     public static ObjectPool SharedInstance;
+
+    [Header("Mes Munitions")]
     public List<GameObject> shotLoad;
-    public GameObject objectToPool;
+    public GameObject shot;
     public int amountToPool;
 
-    //[Header("Munitions Ennemie")]
-    //public static ObjectPool SharedInstance;
-    //public List<GameObject> shotLoad;
-    //public GameObject objectToPool;
-    //public int amountToPool;
+    [Header("Munitions Ennemie")]
+    public List<GameObject> enemyShotLoad;
+    public GameObject enemyShot;
+    public int enemyAmountToPool;
 
     void Awake()
     {
@@ -23,23 +23,46 @@ public class ObjectPool : MonoBehaviour
 
     void Start()
     {
+        // my classic shot - création de la list
         shotLoad = new List<GameObject>();
         GameObject tmp;
         for (int i = 0; i < amountToPool; i++)
         {
-            tmp = Instantiate(objectToPool);
+            tmp = Instantiate(shot);
             tmp.SetActive(false);
             shotLoad.Add(tmp);
         }
+
+        // Enemy shot - création de la list
+        enemyShotLoad = new List<GameObject>();
+        GameObject etmp;
+        for (int j = 0; j < enemyAmountToPool; j++)
+        {
+            etmp = Instantiate(enemyShot);
+            etmp.SetActive(false);
+            enemyShotLoad.Add(etmp);
+        }
     }
 
-    public GameObject GetBullet()
+    public GameObject GetBullet() // My classic shot
     {
         for (int i = 0; i < amountToPool; i++)
         {
             if (!shotLoad[i].activeSelf)
             {
                 return shotLoad[i];
+            }
+        }
+        return null;
+    }
+
+    public GameObject GetEnemyBullet() // Enemy classic shot
+    {
+        for (int i = 0; i < enemyAmountToPool; i++)
+        {
+            if (!enemyShotLoad[i].activeSelf)
+            {
+                return enemyShotLoad[i];
             }
         }
         return null;

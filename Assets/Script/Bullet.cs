@@ -12,21 +12,18 @@ public class Bullet : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        launch = new Vector2(0, moveSpeed);
+        launch = new Vector2(0, moveSpeed); // valeur de direction et vitesse de la balle
     }
 
     private void Update()
     {
-        rb.velocity = launch;
-    }
-
-
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("BoundingBox"))
+        if (transform.gameObject.CompareTag("PlayerShot"))
         {
-            transform.gameObject.SetActive(false);
+            rb.velocity = launch;
         }
+        //else if (transform.gameObject.CompareTag("EnemyShot"))
+        //{
+        //    rb.velocity = Vector2.zero;
+        //}
     }
 }
