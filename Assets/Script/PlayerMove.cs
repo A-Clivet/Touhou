@@ -12,6 +12,8 @@ public class PlayerMove : MonoBehaviour
 
     private Vector2 dir;
     private bool c_shoot = false;
+    private bool recover = false;
+    private int life = 3;
 
     private void Awake()
     {
@@ -24,7 +26,10 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
-
+        if (life == 0)
+        {
+            //Destroy(gameObject);
+        }
         //Vector2 dir = transform.up;
         //Debug.Log("dir");
         if (c_shoot)
@@ -55,4 +60,14 @@ public class PlayerMove : MonoBehaviour
             c_shoot= false;
         }
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!recover)
+        {
+            life -= 1;
+            //recover = true;
+            collision.gameObject.SetActive(false);
+        }
+    }
+
 }

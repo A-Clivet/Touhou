@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &31852445 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5655319463119193865, guid: cecc5f1ec5d19f6448236ca394ed4e56, type: 3}
+  m_PrefabInstance: {fileID: 3174479041563749125}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &200100736
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,7 +188,7 @@ GameObject:
   m_Component:
   - component: {fileID: 320616940}
   - component: {fileID: 320616939}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: MapZone1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -409,6 +414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a3b759c0bcad204baa0f74eba62cc7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 31852445}
 --- !u!1 &1110598795
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,7 +425,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1110598797}
   - component: {fileID: 1110598796}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: MapZone3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -531,7 +537,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1833590448}
   - component: {fileID: 1833590447}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: MapZone2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

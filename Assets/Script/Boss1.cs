@@ -9,6 +9,9 @@ using Random = UnityEngine.Random;
 public class Boss1 : MonoBehaviour
 {
     [SerializeField] int PV;
+    int k = 1;
+
+    Vector3 go;
 
     private int phase = 1;
     List<float> borders1; // list(Top, Down, Left, Right)
@@ -46,10 +49,12 @@ public class Boss1 : MonoBehaviour
     void Update()
     {
         if (PV <= 1500) { phase = 2; }
-        if (PV >= 1)
+        if (PV <= 0) { Destroy(gameObject); }
+        if (k >= 1)
         {
-            ShootingPattern.SharedInstance.Zone(10, 1.5f, transform.gameObject);
-            PV = 0;
+            //Zone3TP(false);
+            ShootingPattern.SharedInstance.StartCoroutine(ShootingPattern.SharedInstance.RapidFire(50, 5, 180, transform.gameObject));
+            k = 0;
         }
     }
 
@@ -63,8 +68,9 @@ public class Boss1 : MonoBehaviour
     {
         float pos_y = Random.Range(borders1[1], borders1[0]);
         float pos_x = Random.Range(borders1[2], borders1[3]);
+        Vector3 go = new Vector3(pos_x,pos_y,transform.position.z);
 
-        if (TP) { transform.position = new Vector2(pos_x, pos_y); } // teleportation dans la zone
+        if (TP) { transform.position = go; } // teleportation dans la zone
         else { /* Lerp */ } // Déplacement dans la zone
     }
 
@@ -72,6 +78,7 @@ public class Boss1 : MonoBehaviour
     {
         float pos_y = Random.Range(borders2[1], borders2[0]);
         float pos_x = Random.Range(borders2[2], borders2[3]);
+        Vector3 go = new Vector3(pos_x, pos_y, transform.position.z);
 
         if (TP) { transform.position = new Vector2(pos_x, pos_y); } // teleportation dans la zone
         else { /* Lerp */ } // Déplacement dans la zone
@@ -81,6 +88,7 @@ public class Boss1 : MonoBehaviour
     {
         float pos_y = Random.Range(borders3[1], borders3[0]);
         float pos_x = Random.Range(borders3[2], borders3[3]);
+        Vector3 go = new Vector3(pos_x, pos_y, transform.position.z);
 
         if (TP) { transform.position = new Vector2(pos_x, pos_y); } // teleportation dans la zone
         else { /* Lerp */ } // Déplacement dans la zone
@@ -108,4 +116,12 @@ public class Boss1 : MonoBehaviour
         EndPattern();
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("PlayerShot")) // desactive la balle si elle sort de l'ecran
+        {
+            PV -= 1;
+            collision.transform.gameObject.SetActive(false);
+        }
+    }
 }
