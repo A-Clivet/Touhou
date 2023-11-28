@@ -21,18 +21,23 @@ public class PlayerMove : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        rb.velocity = dir * moveSpeed; //direction + vitesse de deplacement du perso
+        if (transform.gameObject != null)
+        {
+            rb.velocity = dir * moveSpeed; //direction + vitesse de deplacement du perso
+        }
     }
 
     private void Update()
     {
         if (life == 0)
         {
-            //Destroy(gameObject);
+            StopAllCoroutines();
+            ShootingPattern.SharedInstance.Stop();
+            Time.timeScale = 0f;
+            Destroy(gameObject);
         }
-        //Vector2 dir = transform.up;
-        //Debug.Log("dir");
-        if (c_shoot)
+
+        if (c_shoot && transform.gameObject != null)
         {
             GameObject bullet = ObjectPool.SharedInstance.GetBullet(); // création des balles
             if (bullet != null)
@@ -60,12 +65,23 @@ public class PlayerMove : MonoBehaviour
             c_shoot= false;
         }
     }
+
+
+    private IEnumerator Recovering()
+    {
+        for(int i = 0; i < 2; i++)
+        {
+            recover = !recover;
+            yield return new WaitForSeconds(3);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!recover)
         {
             life -= 1;
-            //recover = true;
+            StartCoroutine(Recovering());
             collision.gameObject.SetActive(false);
         }
     }

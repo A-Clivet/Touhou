@@ -14,7 +14,12 @@ public class ShootingPattern : MonoBehaviour
         SharedInstance = this;
     }
 
-    public void Zone(int numbersOfBullet, float speedOfBullet, GameObject boss)
+    public void Stop()
+    {
+        StopAllCoroutines();
+    }
+    // tir toutautour de lui en même temps
+    public IEnumerator Zone(int numbersOfBullet, float speedOfBullet, GameObject boss)
     {
         for (int i = 0; i < numbersOfBullet; i++)
         {
@@ -30,8 +35,10 @@ public class ShootingPattern : MonoBehaviour
                 bullet.GetComponent<Rigidbody2D>().velocity = dir * speedOfBullet;
             }
         }
+        yield return null;
     }
 
+    // tir tout autour de lui avec du décalage pour faire une spirale
     public IEnumerator Spiral(int numbersOfBullet, float speedOfBullet, GameObject boss)
     {
         for (int i = 0; i < numbersOfBullet; i++)
@@ -55,7 +62,8 @@ public class ShootingPattern : MonoBehaviour
         }
     }
 
-    public IEnumerator RapidFire(int numbersOfBullet, float speedOfBullet, int angle, GameObject boss)
+    // tir plusieurs fois dans des directions aléatoire dans un cêne dont le centre est le joueur
+    public IEnumerator RapidFire(int numbersOfBullet, float speedOfBullet, int angle, GameObject boss) 
     {
         for (int i = 0; i < numbersOfBullet; i++)
         {
@@ -75,7 +83,8 @@ public class ShootingPattern : MonoBehaviour
         }
     }
 
-    public void Canon(GameObject boss)
+    // fais 1 tire rapide en direction du jouuer
+    public IEnumerator Canon(GameObject boss)
     {
         GameObject bullet = ObjectPool.SharedInstance.GetEnemyBullet();
         if (bullet != null)
@@ -85,6 +94,7 @@ public class ShootingPattern : MonoBehaviour
             bullet.SetActive(true);
             Vector2 dir = player.transform.position - boss.transform.position;
             bullet.GetComponent<Rigidbody2D>().velocity = dir * 5.5f;
+            yield return null;
         }
     }
 }

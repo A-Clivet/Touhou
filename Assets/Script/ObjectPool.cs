@@ -21,7 +21,7 @@ public class ObjectPool : MonoBehaviour
         SharedInstance = this;
     }
 
-    void Start()
+    private void OnEnable()
     {
         // my classic shot - création de la list
         shotLoad = new List<GameObject>();
@@ -43,6 +43,7 @@ public class ObjectPool : MonoBehaviour
             enemyShotLoad.Add(etmp);
         }
     }
+
 
     public GameObject GetBullet() // My classic shot
     {
