@@ -7,7 +7,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class PlayerMove : MonoBehaviour
 {
-    [SerializeField] float moveSpeed;
+    public float moveSpeed;
     Rigidbody2D rb;
     private Vector2 dir;
     private bool c_shoot = false;
