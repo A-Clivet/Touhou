@@ -9,11 +9,11 @@ public class PlayerMove : MonoBehaviour
 {
     [SerializeField] float moveSpeed;
     Rigidbody2D rb;
-
     private Vector2 dir;
     private bool c_shoot = false;
     private bool recover = false;
-    private int life = 3;
+
+    public int life = 3;
 
     private void Awake()
     {
@@ -67,7 +67,7 @@ public class PlayerMove : MonoBehaviour
     }
 
 
-    private IEnumerator Recovering()
+    private IEnumerator Recovering() // rend invincible pendant 3s après avoir été touché
     {
         for(int i = 0; i < 2; i++)
         {
@@ -78,7 +78,7 @@ public class PlayerMove : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!recover)
+        if (!recover && collision.CompareTag("EnemyShot"))
         {
             life -= 1;
             StartCoroutine(Recovering());

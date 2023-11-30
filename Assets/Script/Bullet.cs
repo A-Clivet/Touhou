@@ -21,9 +21,5 @@ public class Bullet : MonoBehaviour
         {
             rb.velocity = launch;
         }
-        //else if (transform.gameObject.CompareTag("EnemyShot"))
-        //{
-        //    rb.velocity = Vector2.zero;
-        //}
     }
 }
