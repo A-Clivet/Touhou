@@ -7,6 +7,7 @@ using UnityEngine;
 public class Timer : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI timer_Txt;
+    public TextMeshProUGUI finalTime;
     [SerializeField] private float sectionCurrentTime;
 
     private bool isTimerGoing;
@@ -19,6 +20,7 @@ public class Timer : MonoBehaviour
     {
         isTimerGoing = false;
         timer_Txt.text = "00:00.0";
+        finalTime.text = "00:00.0";
         BeginTimer();
     }
 
@@ -45,6 +47,7 @@ public class Timer : MonoBehaviour
             timePlaying = TimeSpan.FromSeconds(sectionCurrentTime);
             timePlaying_Str = timePlaying.ToString("mm':'ss'.'f");
             timer_Txt.text = ("Time : " + timePlaying_Str);
+            finalTime.text = ("You survived : " + timePlaying_Str + " min");
 
             yield return null;
         }

@@ -7,6 +7,8 @@ using static UnityEngine.GraphicsBuffer;
 
 public class PlayerMove : MonoBehaviour
 {
+    [SerializeField] GameObject Lose;
+
     public float moveSpeed;
     Rigidbody2D rb;
     private Vector2 dir;
@@ -34,6 +36,7 @@ public class PlayerMove : MonoBehaviour
             StopAllCoroutines();
             ShootingPattern.SharedInstance.Stop();
             Time.timeScale = 0f;
+            Lose.SetActive(true);
             Destroy(gameObject);
         }
 

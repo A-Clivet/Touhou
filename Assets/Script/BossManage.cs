@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ public class BossManage : MonoBehaviour
 {
 
     [SerializeField] GameObject GO_boss1;
-    //[SerializeField]
+    [SerializeField] TextMeshProUGUI bossLife;
 
     GameObject boss1;
     bool alive = true;
@@ -27,6 +28,7 @@ public class BossManage : MonoBehaviour
             alive = false;
             StartCoroutine(Spawn());
         }
+        bossLife.text = "Boss Life : " + GetComponentInChildren<Boss1>().PV;
     }
     public IEnumerator Spawn()
     {

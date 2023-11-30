@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using Random = UnityEngine.Random;
 
 public class Boss1 : MonoBehaviour
@@ -12,7 +13,7 @@ public class Boss1 : MonoBehaviour
     Vector3 start;
 
     [SerializeField] GameObject player;
-    [SerializeField] int PV;
+    public int PV;
     int startPV;
     float moveSpeed = 2.0f;
     float shotSpeed = 5.0f;
@@ -280,7 +281,7 @@ public class Boss1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!phase2 && PV <= 1500) 
+        if (!phase2 && PV <= 15/100*startPV) 
         {
             phase2 = true;
             StopAllCoroutines();
@@ -393,6 +394,7 @@ public class Boss1 : MonoBehaviour
         if (collision.CompareTag("PlayerShot")) // eneleve 1 PV et desactive la balle si elle touche
         {
             PV -= 1;
+            Scoring.sharedInstance.score += 1;
             collision.transform.gameObject.SetActive(false);
         }
     }

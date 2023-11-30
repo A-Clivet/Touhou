@@ -6,13 +6,13 @@ using UnityEngine.UI;
 
 public class Life : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI time;
+    [SerializeField] TextMeshProUGUI life;
     [SerializeField] GameObject player;
 
     // Start is called before the first frame update
     void Start()
     {
-        time = GetComponent<TextMeshProUGUI>();
+        life = GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
@@ -20,7 +20,7 @@ public class Life : MonoBehaviour
     {
         if ( player != null && player.GetComponent<PlayerMove>().life > 0)
         {
-           time.text = "Life : " + player.GetComponent<PlayerMove>().life;
+           life.text = "Life : " + player.GetComponent<PlayerMove>().life;
         }
     }
 }

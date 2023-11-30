@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 5655319463119193865, guid: cecc5f1ec5d19f6448236ca394ed4e56, type: 3}
-  PV: 1501
+  PV: 10000
   ShootNamePhase1: 0600000000000000000000000000000000000000090000000100000001000000040000000300000007000000
   PatternSpacingPhase1:
   - 0
