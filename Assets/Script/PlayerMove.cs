@@ -14,6 +14,8 @@ public class PlayerMove : MonoBehaviour
     private Vector2 dir;
     private bool c_shoot = false;
     private bool recover = false;
+    private bool useSpell = false;
+    private bool recallSpell = true;
 
     public int life = 3;
 
@@ -46,10 +48,20 @@ public class PlayerMove : MonoBehaviour
             GameObject bullet = ObjectPool.SharedInstance.GetBullet(); // création des balles
             if (bullet != null)
             {
-                bullet.transform.position = new Vector3(transform.position.x, transform.position.y+0.5f, transform.position.z);
-                bullet.transform.rotation = transform.rotation;
+                bullet.GetComponent<Bullet>().damage = 1;
+                bullet.transform.SetPositionAndRotation(new Vector3(transform.position.x, transform.position.y+0.5f, transform.position.z), transform.rotation);
                 bullet.SetActive(true);
             }
+        }
+
+        if (transform.gameObject != null && useSpell)
+        {
+            useSpell =  false;
+            GameObject s_bullet = ObjectPool.SharedInstance.GetSBullet();
+            s_bullet.GetComponent<Bullet>().damage = 500;
+            s_bullet.transform.SetPositionAndRotation(new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), transform.rotation);
+            s_bullet.SetActive(true);
+            StartCoroutine(SpellRecover(10));
         }
     }
 
@@ -68,6 +80,29 @@ public class PlayerMove : MonoBehaviour
         {
             c_shoot= false;
         }
+    }
+
+    public void SpecialShoot(InputAction.CallbackContext context) 
+    {
+        if(context.performed && recallSpell) // quand j'appuie sur la touche
+        {
+            recallSpell = false;
+            StartCoroutine(Cast(5));
+        }
+    }
+
+    private IEnumerator Cast(float time)
+    {
+        SpecialPrint.sharedInstance.BeginTimer();
+        yield return new WaitForSeconds(time);
+        useSpell = true;
+    }
+
+    private IEnumerator SpellRecover(float time)
+    {
+        yield return new WaitForSeconds(time);
+        recallSpell = true;
+        
     }
 
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -6,8 +7,9 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     Rigidbody2D rb;
-    private float moveSpeed = 25;
+    private readonly float moveSpeed = 25;
     private Vector2 launch;
+    [NonSerialized] public int damage = 0;
 
     private void Awake()
     {

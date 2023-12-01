@@ -6,9 +6,12 @@ public class ObjectPool : MonoBehaviour
 {
     public static ObjectPool SharedInstance;
 
+    GameObject _specialShot;
+
     [Header("Mes Munitions")]
     public List<GameObject> shotLoad;
     public GameObject shot;
+    public GameObject specialShot;
     public int amountToPool;
 
     [Header("Munitions Ennemie")]
@@ -32,6 +35,9 @@ public class ObjectPool : MonoBehaviour
             tmp.SetActive(false);
             shotLoad.Add(tmp);
         }
+        _specialShot = Instantiate(specialShot);
+        _specialShot.SetActive(false); 
+
 
         // Enemy shot - création de la list
         enemyShotLoad = new List<GameObject>();
@@ -55,6 +61,11 @@ public class ObjectPool : MonoBehaviour
             }
         }
         return null;
+    }
+
+    public GameObject GetSBullet()
+    {
+        return _specialShot;
     }
 
     public GameObject GetEnemyBullet() // Enemy classic shot

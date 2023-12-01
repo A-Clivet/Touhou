@@ -391,10 +391,10 @@ public class Boss1 : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("PlayerShot")) // eneleve 1 PV et desactive la balle si elle touche
+        if (collision.CompareTag("PlayerShot")) // eneleve les PV correspondant au tir et desactive la balle si elle touche
         {
-            PV -= 1;
-            Scoring.sharedInstance.score += 1;
+            PV -= collision.gameObject.GetComponent<Bullet>().damage;
+            Scoring.sharedInstance.score += collision.gameObject.GetComponent<Bullet>().damage;
             collision.transform.gameObject.SetActive(false);
         }
     }
