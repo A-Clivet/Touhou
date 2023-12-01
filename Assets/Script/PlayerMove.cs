@@ -20,6 +20,7 @@ public class PlayerMove : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        Time.timeScale = 1;
     }
     private void FixedUpdate()
     {

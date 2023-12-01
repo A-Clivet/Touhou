@@ -21,5 +21,9 @@ public class Bullet : MonoBehaviour
         {
             rb.velocity = launch;
         }
+        if (Time.timeScale <= 0)
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
