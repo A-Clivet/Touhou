@@ -17,6 +17,7 @@ public class Boss1 : MonoBehaviour
     int startPV;
     float moveSpeed = 2.0f;
     float shotSpeed = 5.0f;
+    float playerSpeed;
     int dead = 0;
     private int _phase = 0;
     private int phase = 1;
@@ -63,8 +64,9 @@ public class Boss1 : MonoBehaviour
     void Start()
     {
         startPV = PV;
+        playerSpeed = player.GetComponent<PlayerMove>().moveSpeed;
 
-        // Def des Zone de déplacement/teleportation
+        // Def des Zone de dÃ©placement/teleportation
         borders1 = MapZone.SharedInstance.Zone1();
         borders2 = MapZone.SharedInstance.Zone2();
         borders3 = MapZone.SharedInstance.Zone3();
@@ -107,13 +109,13 @@ public class Boss1 : MonoBehaviour
         }
 
 
-        // Implémentation du pattern
-        foreach (var name in ShootNamePhase1)
+        // ImplÃ©mentation du pattern
+        foreach (TypeShotEnum name in ShootNamePhase1)
         {
             switch (name)
             {
                 case TypeShotEnum.Zone:
-                    PatternActionsPhase1.Add(() =>
+                    PatternActionsPhase1.Add(() => // cette methode s'appelle "Lamba" : ( ma fonction( () => {mon code en tant que commentaire} )
                     {
                         ShootingPattern.SharedInstance.StartCoroutine(ShootingPattern.SharedInstance.Zone(50 + dead, shotSpeed + dead, transform.gameObject));
                     });
@@ -287,7 +289,7 @@ public class Boss1 : MonoBehaviour
             StopAllCoroutines();
             ShootingPattern.SharedInstance.Stop();
             phase = 2; moveSpeed = 3.0f; shotSpeed = 6.0f;
-            player.GetComponent<PlayerMove>().moveSpeed *= 1.5f;
+            playerSpeed *= 1.5f;
             PlayPattern(0);
         }
         if (PV <= 0)
@@ -308,7 +310,7 @@ public class Boss1 : MonoBehaviour
         go = new Vector3(pos_x, pos_y, transform.position.z);
 
         if (TP) { transform.position = go; } // teleportation dans la zone
-        else { StartCoroutine(Move(start, go, moveSpeed)); } // Déplacement dans la zone
+        else { StartCoroutine(Move(start, go, moveSpeed)); } // DÃ©placement dans la zone
     }
 
     private void Zone2TP(bool TP)
@@ -320,7 +322,7 @@ public class Boss1 : MonoBehaviour
         go = new Vector3(pos_x, pos_y, transform.position.z);
 
         if (TP) { transform.position = new Vector2(pos_x, pos_y); } // teleportation dans la zone
-        else { StartCoroutine(Move(start, go, moveSpeed)); } // Déplacement dans la zone
+        else { StartCoroutine(Move(start, go, moveSpeed)); } // DÃ©placement dans la zone
     }
 
     private void Zone3TP(bool TP)
@@ -332,7 +334,7 @@ public class Boss1 : MonoBehaviour
         go = new Vector3(pos_x, pos_y, transform.position.z);
 
         if (TP) { transform.position = new Vector2(pos_x, pos_y); } // teleportation dans la zone
-        else { StartCoroutine(Move(start, go, moveSpeed)); } // Déplacement dans la zone
+        else { StartCoroutine(Move(start, go, moveSpeed)); } // DÃ©placement dans la zone
     }
 
     IEnumerator Move(Vector3 start, Vector3 go, float timeToMove)

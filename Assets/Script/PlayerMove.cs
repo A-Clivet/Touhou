@@ -120,6 +120,7 @@ public class PlayerMove : MonoBehaviour
         if (!recover && collision.CompareTag("EnemyShot"))
         {
             life -= 1;
+            Life.test.LifeUI(life);
             StartCoroutine(Recovering());
             collision.gameObject.SetActive(false);
         }
